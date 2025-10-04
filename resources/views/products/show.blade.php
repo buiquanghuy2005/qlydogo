@@ -33,7 +33,7 @@
         <h4 class="fw-bold mb-3">⭐ Đánh giá sản phẩm</h4>
         @forelse ($product->reviews as $review)
         <div class="border-bottom py-2">
-            <strong>{{ $review->user->full_name ?? 'Người dùng ẩn danh' }}</strong>
+            <strong>{{ $review->user->name ?? 'Người dùng ẩn danh' }}</strong>
             <span class="text-warning">{{ str_repeat('★', $review->rating) }}</span>
             <p class="mb-0">{{ $review->comment }}</p>
         </div>

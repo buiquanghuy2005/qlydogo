@@ -11,7 +11,7 @@ class ReviewSeeder extends Seeder
     {
         DB::table('reviews')->insert([
             [
-                'user_id' => 1,
+                'id' => 1,
                 'product_id' => 1,
                 'comment' => 'Sản phẩm chất lượng, giao hàng nhanh!',
                 'rating' => 5,
@@ -19,7 +19,7 @@ class ReviewSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 2,
+                'id' => 2,
                 'product_id' => 2,
                 'comment' => 'Thiết kế đẹp, nhưng hơi đắt một chút.',
                 'rating' => 4,
