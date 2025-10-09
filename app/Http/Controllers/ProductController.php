@@ -12,7 +12,7 @@ class ProductController extends Controller
     public function index()
     {
         // Lấy toàn bộ sản phẩm cùng với thông tin danh mục
-        $products = Product::with('category')->paginate(9);
+        $products = Product::with('category')->paginate(6);
 
         return view('products.index', compact('products'));
     }
@@ -39,12 +39,15 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock_quantity' => 'required|integer|min:0',
             'category_id' => 'nullable|exists:categories,category_id',
+            'image_url' => 'nullable|url',
         ]);
 
         Product::create($request->all());
 
         return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
     }
+
+
 
     // ✏️ Hiển thị form sửa sản phẩm
     public function edit($id)

@@ -1,0 +1,72 @@
+@extends('layouts.myapp')
+
+@section('title', 'Chỉnh sửa sản phẩm')
+
+@section('content')
+<div class="container my-5">
+    <h2 class="text-center mb-4">✏️ Chỉnh sửa sản phẩm</h2>
+
+    <form action="{{ route('products.update', $product->product_id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="mb-3">
+            <label for="product_name" class="form-label fw-bold">Tên sản phẩm</label>
+            <input type="text" name="product_name" class="form-control"
+                value="{{ old('product_name', $product->product_name) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="category_id" class="form-label fw-bold">Danh mục</label>
+            <select name="category_id" class="form-select">
+                <option value="">-- Chọn danh mục --</option>
+                @foreach($categories as $c)
+                <option value="{{ $c->category_id }}" {{ $product->category_id == $c->category_id ? 'selected' : '' }}>
+                    {{ $c->category_name }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="material" class="form-label fw-bold">Chất liệu</label>
+            <input type="text" name="material" class="form-control" value="{{ old('material', $product->material) }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="dimensions" class="form-label fw-bold">Kích thước</label>
+            <input type="text" name="dimensions" class="form-control"
+                value="{{ old('dimensions', $product->dimensions) }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label fw-bold">Giá (VNĐ)</label>
+            <input type="number" name="price" class="form-control" step="0.01"
+                value="{{ old('price', $product->price) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="stock_quantity" class="form-label fw-bold">Số lượng tồn</label>
+            <input type="number" name="stock_quantity" class="form-control"
+                value="{{ old('stock_quantity', $product->stock_quantity) }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="image_url" class="form-label fw-bold">URL ảnh</label>
+            <input type="text" name="image_url" class="form-control"
+                value="{{ old('image_url', $product->image_url) }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label fw-bold">Mô tả</label>
+            <textarea name="description" class="form-control"
+                rows="4">{{ old('description', $product->description) }}</textarea>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="{{ route('products.index') }}" class="btn btn-secondary">← Quay lại</a>
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+        </div>
+    </form>
+</div>
+@endsection

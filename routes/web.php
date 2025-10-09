@@ -12,4 +12,4 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 use App\Http\Controllers\ProductController;
 
-Route::resource('products', ProductController::class);
+require __DIR__ .    '/product.php';
