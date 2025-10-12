@@ -12,16 +12,18 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'Nguyen Thi Nhung',
+                'name' => 'admin',
                 'email' => 'a@example.com',
                 'password' => Hash::make('123456'),
+                'role' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Nguyen Thi Nhung',
+                'name' => 'user',
                 'email' => 'b@example.com',
                 'password' => Hash::make('123456'),
+                'role' => 'user',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

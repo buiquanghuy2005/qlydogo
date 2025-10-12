@@ -6,9 +6,15 @@
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="fw-bold">🪵 Quản lý sản phẩm nội thất</h1>
+
+        {{-- ✅ Nút thêm sản phẩm - chỉ hiển thị khi là admin --}}
+        @auth
+        @if (Auth::user()->role === 'admin')
         <a href="{{ route('products.create') }}" class="btn btn-success">
             ➕ Thêm sản phẩm
         </a>
+        @endif
+        @endauth
     </div>
 
     {{-- Hiển thị thông báo khi thêm/sửa/xóa thành công --}}
@@ -29,19 +35,27 @@
                     class="card-img-top" alt="{{ $product->product_name }}" style="height: 230px; object-fit: cover;">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ $product->product_name }}</h5>
-                    <p class="text-muted mb-1">💰 {{ number_format($product->price, 0, ',', '.') }} VNĐ</p>
+                    <p class="text-muted mb-1">
+                        💰 {{ number_format($product->price, 0, ',', '.') }} VNĐ
+                    </p>
                     <p class="text-secondary small mb-3">
                         {{ Str::limit($product->description, 70, '...') }}
                     </p>
 
                     <div class="mt-auto d-flex justify-content-between">
+                        {{-- Nút xem (ai cũng thấy) --}}
                         <a href="{{ route('products.show', $product->product_id) }}"
                             class="btn btn-outline-primary btn-sm">
                             👁 Xem
                         </a>
+
+                        {{-- ✅ Chỉ ADMIN mới được Sửa / Xóa --}}
+                        @auth
+                        @if (Auth::user()->role === 'admin')
                         <a href="{{ route('products.edit', $product->product_id) }}" class="btn btn-warning btn-sm">
                             ✏️ Sửa
                         </a>
+
                         <form action="{{ route('products.destroy', $product->product_id) }}" method="POST"
                             class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này không?')">
                             @csrf
@@ -50,6 +64,8 @@
                                 🗑️ Xóa
                             </button>
                         </form>
+                        @endif
+                        @endauth
                     </div>
                 </div>
             </div>
