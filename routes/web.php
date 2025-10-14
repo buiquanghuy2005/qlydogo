@@ -33,6 +33,24 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+// 🏠 Trang chủ → chuyển hướng đến danh sách sản phẩm
+Route::get('/', function () {
+    return redirect()->route('about');
+})->name('home');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/product.php';
 require __DIR__ . '/cart.php';
+require __DIR__ . '/order.php';
+require __DIR__ . '/checkout.php';
+
+use App\Http\Controllers\Admin\OrderAdminController;
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.') // 🟢 thêm dòng này để Laravel tự thêm tiền tố "admin." cho các route
+    ->group(function () {
+        Route::get('/orders', [OrderAdminController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{id}', [OrderAdminController::class, 'show'])->name('orders.show');
+        Route::post('/orders/{id}/status', [OrderAdminController::class, 'updateStatus'])->name('orders.updateStatus');
+    });

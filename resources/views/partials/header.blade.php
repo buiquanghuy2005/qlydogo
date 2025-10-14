@@ -12,13 +12,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Menu chính -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
 
                     <!-- Trang Giới thiệu -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('about') ? 'fw-bold ' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('about') ? 'fw-bold' : '' }}"
                             href="{{ route('about') }}" style="color: #5A3E2B;">
                             🏡 Giới thiệu
                         </a>
@@ -26,7 +25,7 @@
 
                     <!-- Trang Sản phẩm -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products.*') ? 'fw-bold ' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('products.*') ? 'fw-bold' : '' }}"
                             href="{{ route('products.index') }}" style="color: #5A3E2B;">
                             🪵 Sản phẩm
                         </a>
@@ -34,13 +33,44 @@
 
                     <!-- Trang Liên hệ -->
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('contact') ? 'fw-bold ' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('contact') ? 'fw-bold' : '' }}"
                             href="{{ route('contact') }}" style="color: #5A3E2B;">
                             📞 Liên hệ
                         </a>
                     </li>
 
-                    <!-- Tích hợp đăng nhập Laravel Breeze -->
+                    <!-- Mục Quản trị chỉ hiển thị cho admin -->
+                    @auth
+                    @if(Auth::user()->role === 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.orders.*') ? 'fw-bold' : '' }}"
+                            href="{{ route('admin.orders.index') }}" style="color: #B22222;">
+                            ⚙️ Quản lý đơn hàng
+                        </a>
+                    </li>
+                    @endif
+                    @endauth
+
+                    <!-- Giỏ hàng & Đơn hàng chỉ hiển thị cho user -->
+                    @auth
+                    @if(Auth::user()->role !== 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('cart.*') ? 'fw-bold' : '' }}"
+                            href="{{ route('cart.index') }}" style="color: #5A3E2B;">
+                            🛒 Giỏ hàng
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('orders.*') ? 'fw-bold' : '' }}"
+                            href="{{ route('orders.index') }}" style="color: #5A3E2B;">
+                            📦 Đơn hàng
+                        </a>
+                    </li>
+                    @endif
+                    @endauth
+
+                    <!-- Tài khoản -->
                     @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-semibold" href="#" id="userDropdown" role="button"

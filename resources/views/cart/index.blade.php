@@ -42,6 +42,13 @@
     </table>
 
     <h4 class="mt-4 text-end">Tổng cộng: <strong>{{ number_format($total) }} đ</strong></h4>
+    <div style="text-align: right; margin-top: 20px;">
+        <form action="{{ route('checkout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-success">Thanh toán</button>
+        </form>
+    </div>
+
     @endif
 </div>
 @endsection

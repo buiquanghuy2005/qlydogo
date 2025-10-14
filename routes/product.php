@@ -15,8 +15,3 @@ Route::middleware(['auth', 'checkadmin'])->group(function () {
 // 🌐 Route công khai (ai cũng xem được)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-
-// 🏠 Trang chủ → chuyển hướng đến danh sách sản phẩm
-Route::get('/', function () {
-    return redirect()->route('products.index');
-})->name('home');
