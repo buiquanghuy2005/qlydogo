@@ -8,28 +8,28 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // 🏠 Trang danh sách sản phẩm
+    // Trang danh sách sản phẩm
     public function index()
     {
         $products = Product::with('category')->paginate(6);
         return view('products.index', compact('products'));
     }
 
-    // 🔍 Trang chi tiết sản phẩm
+    // Trang chi tiết sản phẩm
     public function show($id)
     {
         $product = Product::with('category', 'reviews.user')->findOrFail($id);
         return view('products.show', compact('product'));
     }
 
-    // ➕ Hiển thị form thêm sản phẩm
+    // Hiển thị form thêm sản phẩm
     public function create()
     {
         $categories = Category::all();
         return view('products.create', compact('categories'));
     }
 
-    // 💾 Lưu sản phẩm mới (có thể nhập danh mục mới)
+    // Lưu sản phẩm mới (có thể nhập danh mục mới)
     public function store(Request $request)
     {
         $request->validate([
@@ -40,12 +40,12 @@ class ProductController extends Controller
             'image_url' => 'nullable|url',
         ]);
 
-        // 🔹 Tìm hoặc tạo danh mục mới nếu chưa có
+        //Tìm hoặc tạo danh mục mới nếu chưa có
         $category = Category::firstOrCreate([
             'category_name' => $request->category_name
         ]);
 
-        // 🔹 Tạo sản phẩm mới
+        //Tạo sản phẩm mới
         Product::create([
             'product_name' => $request->product_name,
             'category_id' => $category->category_id,
@@ -60,7 +60,7 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công!');
     }
 
-    // ✏️ Hiển thị form sửa sản phẩm
+    // Hiển thị form sửa sản phẩm
     public function edit($id)
     {
         $product = Product::findOrFail($id);
@@ -68,7 +68,7 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'categories'));
     }
 
-    // 💾 Cập nhật sản phẩm (có thể đổi danh mục)
+    // Cập nhật sản phẩm (có thể đổi danh mục)
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -79,12 +79,12 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
 
-        // 🔹 Xử lý danh mục
+        // Xử lý danh mục
         $category = Category::firstOrCreate([
             'category_name' => $request->category_name
         ]);
 
-        // 🔹 Cập nhật sản phẩm
+        // Cập nhật sản phẩm
         $product->update([
             'product_name' => $request->product_name,
             'category_id' => $category->category_id,
@@ -99,7 +99,7 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công!');
     }
 
-    // ❌ Xóa sản phẩm
+    // Xóa sản phẩm
     public function destroy($id)
     {
         $product = Product::findOrFail($id);

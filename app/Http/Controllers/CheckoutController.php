@@ -15,7 +15,7 @@ class CheckoutController extends Controller
     {
         $user = Auth::user();
 
-        // ✅ Lấy giỏ hàng của user kèm sản phẩm
+        //  Lấy giỏ hàng của user kèm sản phẩm
         $cart = Cart::where('id', $user->id)->with('cartItems.product')->first();
 
         if (!$cart || $cart->cartItems->isEmpty()) {
@@ -25,10 +25,10 @@ class CheckoutController extends Controller
         DB::beginTransaction();
 
         try {
-            // ✅ Tính tổng tiền
+            // Tính tổng tiền
             $total = $cart->cartItems->sum(fn($item) => $item->price * $item->quantity);
 
-            // ✅ Tạo đơn hàng
+            // Tạo đơn hàng
             $order = Order::create([
                 'id' => $user->id,
                 'order_date' => now(),
@@ -37,7 +37,7 @@ class CheckoutController extends Controller
                 'shipping_address' => $request->input('shipping_address', 'Chưa cập nhật'),
             ]);
 
-            // ✅ Thêm chi tiết đơn hàng
+            // Thêm chi tiết đơn hàng
             foreach ($cart->cartItems as $item) {
                 OrderDetail::create([
                     'order_id' => $order->order_id,
@@ -47,18 +47,18 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // ✅ Xóa giỏ hàng
+            // Xóa giỏ hàng
             $cart->cartItems()->delete();
 
             DB::commit();
 
-            // ✅ Chuyển hướng đến trang xem đơn hàng
+            // Chuyển hướng đến trang xem đơn hàng
             return redirect()->route('orders.show', $order->order_id)
                 ->with('success', 'Thanh toán thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
 
-            // ✅ Ghi log lỗi ra màn hình để bạn biết
+            // Ghi log lỗi ra màn hình để bạn biết
             return redirect()->route('cart.index')->with('error', 'Lỗi khi thanh toán: ' . $e->getMessage());
         }
     }

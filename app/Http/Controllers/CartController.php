@@ -35,7 +35,7 @@ class CartController extends Controller
                 'product_id' => $productId,
                 'quantity' => 1,
                 'price' => $product->price,
-                'cart_id' => $cart->cart_id, // ✅ Quan trọng
+                'cart_id' => $cart->cart_id,
             ]);
         }
 

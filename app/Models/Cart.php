@@ -9,18 +9,18 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'cart_id'; // ✅ Khóa chính không phải là "id"
-    protected $fillable = ['id']; // id ở đây là user_id
+    protected $primaryKey = 'cart_id';
+    protected $fillable = ['id'];
 
     // Quan hệ tới cart_items
     public function cartItems()
     {
-        return $this->hasMany(CartItem::class, 'cart_id', 'cart_id'); // ✅
+        return $this->hasMany(CartItem::class, 'cart_id', 'cart_id'); // 
     }
 
     // Quan hệ tới user
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'id'); // user_id
+        return $this->belongsTo(User::class, 'id', 'id');
     }
 }
