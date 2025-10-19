@@ -6,7 +6,8 @@
 <div class="container my-5">
     <h1 class="fw-bold mb-4">➕ Thêm sản phẩm mới</h1>
 
-    <form action="{{ route('products.store') }}" method="POST">
+    {{-- ⚙️ Thêm enctype để upload file --}}
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         {{-- Tên sản phẩm --}}
@@ -15,7 +16,7 @@
             <input type="text" name="product_name" class="form-control" required>
         </div>
 
-        {{-- Danh mục: có thể gõ hoặc chọn --}}
+        {{-- Danh mục --}}
         <div class="mb-3">
             <label class="form-label">Danh mục</label>
             <input type="text" name="category_name" class="form-control" list="categoryList"
@@ -55,10 +56,16 @@
             <input type="number" name="price" class="form-control" required>
         </div>
 
-        {{-- Ảnh --}}
+        {{-- 🖼️ Ảnh sản phẩm --}}
         <div class="mb-3">
-            <label class="form-label">URL ảnh sản phẩm (từ mạng)</label>
-            <input type="text" name="image_url" class="form-control" placeholder="https://example.com/image.jpg">
+            <label class="form-label">Ảnh sản phẩm</label>
+            <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
+        </div>
+
+        {{-- Hiển thị ảnh xem trước --}}
+        <div class="mb-3 text-center">
+            <img id="preview" src="#" alt="Xem trước ảnh" class="img-fluid rounded shadow-sm"
+                style="max-width: 300px; display: none;">
         </div>
 
         {{-- Nút --}}
@@ -66,4 +73,24 @@
         <a href="{{ route('products.index') }}" class="btn btn-secondary">← Quay lại</a>
     </form>
 </div>
+
+{{-- Script xem trước ảnh --}}
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+        }
+    }
+</script>
 @endsection

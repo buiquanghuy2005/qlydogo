@@ -46,7 +46,7 @@ require __DIR__ . '/checkout.php';
 
 use App\Http\Controllers\Admin\OrderAdminController;
 
-Route::middleware(['auth', 'admin'])
+Route::middleware(['auth', 'checkadmin'])
     ->prefix('admin')
     ->name('admin.') // 🟢 thêm dòng này để Laravel tự thêm tiền tố "admin." cho các route
     ->group(function () {
