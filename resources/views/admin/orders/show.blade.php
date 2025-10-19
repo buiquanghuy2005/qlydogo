@@ -16,7 +16,7 @@
             <p><strong>Tên:</strong> {{ $order->user->name ?? 'Không rõ' }}</p>
             <p><strong>Email:</strong> {{ $order->user->email ?? 'Không rõ' }}</p>
             <p><strong>Ngày đặt:</strong> {{ $order->order_date }}</p>
-            <p><strong>Tổng tiền:</strong> {{ number_format($order->total, 0, ',', '.') }} ₫</p>
+            <p><strong>Tổng tiền:</strong> {{ number_format($order->total_amount, 0, ',', '.') }} ₫</p>
 
             <form action="{{ route('admin.orders.updateStatus', $order->order_id) }}" method="POST" class="mt-3">
                 @csrf
@@ -53,10 +53,10 @@
                 @foreach($order->orderDetails as $index => $detail)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $detail->product->name ?? 'Sản phẩm đã xóa' }}</td>
+                    <td>{{ $detail->product->product_name ?? 'Sản phẩm đã xóa' }}</td>
                     <td>{{ $detail->quantity }}</td>
-                    <td>{{ number_format($detail->price, 0, ',', '.') }} ₫</td>
-                    <td>{{ number_format($detail->price * $detail->quantity, 0, ',', '.') }} ₫</td>
+                    <td>{{ number_format($detail->unit_price, 0, ',', '.') }} ₫</td>
+                    <td>{{ number_format($detail->unit_price * $detail->quantity, 0, ',', '.') }} ₫</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -27,7 +27,7 @@
                 <tr>
                     <td>#{{ $order->order_id }}</td>
                     <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
-                    <td>{{ number_format($order->total_price) }} đ</td>
+                    <td>{{ number_format($order->total_amount) }} đ</td>
                     <td>
                         <span class="badge bg-success">{{ $order->status ?? 'Hoàn thành' }}</span>
                     </td>
