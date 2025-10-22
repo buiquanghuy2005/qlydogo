@@ -43,13 +43,13 @@
                     </p>
 
                     <div class="mt-auto d-flex justify-content-between">
-                        {{-- Nút xem (ai cũng thấy) --}}
+
                         <a href="{{ route('products.show', $product->product_id) }}"
                             class="btn btn-outline-primary btn-sm">
                             Xem
                         </a>
 
-                        {{-- Chỉ ADMIN mới được Sửa / Xóa --}}
+
                         @auth
                         @if (Auth::user()->role === 'admin')
                         <a href="{{ route('products.edit', $product->product_id) }}" class="btn btn-warning btn-sm">
