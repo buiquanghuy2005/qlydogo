@@ -12,13 +12,13 @@ class Cart extends Model
     protected $primaryKey = 'cart_id';
     protected $fillable = ['id'];
 
-    // Quan hệ tới cart_items
+
     public function cartItems()
     {
         return $this->hasMany(CartItem::class, 'cart_id', 'cart_id'); // 
     }
 
-    // Quan hệ tới user
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id', 'id');

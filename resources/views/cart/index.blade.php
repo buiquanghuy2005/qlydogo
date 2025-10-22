@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container my-5">
-    <h2 class="fw-bold mb-4" style="color: #8B4513;">🛒 Giỏ hàng của bạn</h2>
+    <h2 class="fw-bold mb-4" style="color: #8B4513;"> Giỏ hàng của bạn</h2>
 
     @if($items->isEmpty())
     <p>Giỏ hàng của bạn đang trống.</p>

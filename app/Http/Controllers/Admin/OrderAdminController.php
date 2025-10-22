@@ -10,7 +10,7 @@ class OrderAdminController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('user')->orderBy('order_date', 'desc')->get();
+        $orders = Order::with('user')->orderBy('order_date', 'desc')->paginate(10);
         return view('admin.orders.index', compact('orders'));
     }
 

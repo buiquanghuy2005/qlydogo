@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    // Hiển thị giỏ hàng
+
     public function index()
     {
         $cart = Cart::firstOrCreate(['id' => Auth::id()]);
@@ -19,7 +19,7 @@ class CartController extends Controller
         return view('cart.index', compact('items'));
     }
 
-    // Thêm sản phẩm vào giỏ
+
     public function add(Request $request, $productId)
     {
         $product = Product::findOrFail($productId);
@@ -45,7 +45,7 @@ class CartController extends Controller
     }
 
 
-    // Xoá sản phẩm khỏi giỏ
+
     public function remove($itemId)
     {
         $item = CartItem::findOrFail($itemId);

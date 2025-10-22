@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h3 class="mb-4">📦 Quản lý đơn hàng</h3>
+    <h3 class="mb-4"> Quản lý đơn hàng</h3>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -23,12 +23,15 @@
                 <td>{{ number_format($order->total_amount, 0, ',', '.') }}₫</td>
                 <td>{{ ucfirst($order->status) }}</td>
                 <td>
-                    <a href="{{ route('admin.orders.show', $order->order_id) }}" class="btn btn-sm btn-primary">👁️
+                    <a href="{{ route('admin.orders.show', $order->order_id) }}" class="btn btn-sm btn-primary">
                         Xem</a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        {{ $orders->links('pagination::bootstrap-5') }}
+    </div>
 </div>
 @endsection

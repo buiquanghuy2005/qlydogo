@@ -6,8 +6,10 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-6">
-            <img src="{{ $product->image_url ?? 'https://via.placeholder.com/500x400?text=No+Image' }}"
-                class="img-fluid rounded shadow" alt="{{ $product->product_name }}">
+            <img src="{{ $product->image_url ? asset($product->image_url) : 'https://via.placeholder.com/500x400?text=No+Image' }}"
+                class="img-fluid rounded shadow" style="max-width: 100%; width: 500px; height: auto;"
+                alt="{{ $product->product_name }}">
+
         </div>
 
         <div class="col-md-6">
@@ -25,8 +27,9 @@
             <a href="{{ route('products.index') }}" class="btn btn-secondary mt-3">
                 ← Quay lại danh sách
             </a>
-            {{-- 🛒 Nút thêm vào giỏ hàng --}}
+
             @auth
+            @if (Auth::user()->role === 'user')
             <form action="{{ route('cart.add', $product->product_id) }}" method="POST" class="mt-3">
                 @csrf
                 <div class="input-group" style="max-width: 200px;">
@@ -36,6 +39,7 @@
                     </button>
                 </div>
             </form>
+            @endif
             @else
             <p class="mt-3">
                 <a href="{{ route('login') }}" class="text-primary">Đăng nhập</a> để thêm vào giỏ hàng.
@@ -45,7 +49,6 @@
         </div>
     </div>
 
-    {{-- ⭐ Khu vực đánh giá --}}
     <div class="mt-5">
         <h4 class="fw-bold mb-3">⭐ Đánh giá sản phẩm</h4>
 
@@ -73,7 +76,7 @@
         @endauth
 
         {{-- Hiển thị các đánh giá --}}
-        @forelse ($product->reviews as $review)
+        @forelse ($reviews as $review)
         <div class="border-bottom py-2">
             <strong>{{ $review->user->name ?? 'Người dùng ẩn danh' }}</strong>
             <span class="text-warning">{{ str_repeat('★', $review->rating) }}</span>
@@ -94,6 +97,10 @@
         @empty
         <p>Chưa có đánh giá nào.</p>
         @endforelse
+
+        <div class="mt-3">
+            {{ $reviews->links('pagination::bootstrap-5') }}
+        </div>
     </div>
 </div>
 @endsection

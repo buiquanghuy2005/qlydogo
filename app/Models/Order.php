@@ -12,20 +12,20 @@ class Order extends Model
     protected $primaryKey = 'order_id';
 
     protected $fillable = [
-        'id', // cột này là foreign key đến bảng users
+        'id',
         'order_date',
         'total_amount',
         'status',
-        'shipping_address',
+
     ];
 
-    // Một đơn hàng thuộc về 1 user
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id', 'id');
     }
 
-    // Một đơn hàng có nhiều chi tiết
+
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class, 'order_id', 'order_id');

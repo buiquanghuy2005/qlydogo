@@ -3,29 +3,30 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Review;
+use App\Models\Product;
+use App\Models\User;
 
 class ReviewSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('reviews')->insert([
-            [
-                'id' => 1,
-                'product_id' => 1,
-                'comment' => 'Sản phẩm chất lượng, giao hàng nhanh!',
-                'rating' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id' => 2,
-                'product_id' => 2,
-                'comment' => 'Thiết kế đẹp, nhưng hơi đắt một chút.',
-                'rating' => 4,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        $users = User::all();
+        $products = Product::all();
+
+        if ($users->count() === 0 || $products->count() === 0) {
+            $this->command->info('No users or products found, skipping reviews seeding.');
+            return;
+        }
+
+
+        for ($i = 0; $i < 50; $i++) {
+            Review::create([
+                'product_id' => $products->random()->product_id,
+                'id' => $users->random()->id,
+                'rating' => rand(1, 5),
+                'comment' => fake()->sentence(10),
+            ]);
+        }
     }
 }

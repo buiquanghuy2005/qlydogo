@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container my-5">
-    <h2 class="fw-bold mb-4" style="color: #8B4513;">🧾 Danh sách đơn hàng của bạn</h2>
+    <h2 class="fw-bold mb-4" style="color: #8B4513;">Danh sách đơn hàng của bạn</h2>
 
     @if($orders->isEmpty())
     <div class="alert alert-info">
@@ -40,7 +40,11 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="mt-3">
+            {{ $orders->links('pagination::bootstrap-5') }}
+        </div>
     </div>
+
     @endif
 </div>
 @endsection

@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    /**
-     * Lưu đánh giá mới
-     */
+
     public function store(Request $request, $product_id)
     {
         $request->validate([
@@ -29,9 +27,7 @@ class ReviewController extends Controller
         return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá sản phẩm!');
     }
 
-    /**
-     * Xóa đánh giá (chỉ chủ review hoặc admin)
-     */
+
     public function destroy($review_id)
     {
         $review = Review::findOrFail($review_id);

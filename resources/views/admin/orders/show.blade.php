@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h2 class="mb-4">🧾 Chi tiết đơn hàng #{{ $order->order_id }}</h2>
+    <h2 class="mb-4">Chi tiết đơn hàng #{{ $order->order_id }}</h2>
 
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <h4 class="mb-3">🛍️ Danh sách sản phẩm</h4>
+    <h4 class="mb-3">Danh sách sản phẩm</h4>
     <div class="table-responsive">
         <table class="table table-bordered align-middle">
             <thead class="table-light">
@@ -63,6 +63,5 @@
         </table>
     </div>
 
-    <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary mt-3">⬅ Quay lại danh sách</a>
 </div>
 @endsection

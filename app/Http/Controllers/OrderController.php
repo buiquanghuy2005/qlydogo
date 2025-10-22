@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::where('id', Auth::id())->orderBy('order_date', 'desc')->get();
+        $orders = Order::where('id', Auth::id())->orderBy('order_date', 'desc')->paginate(10);
         return view('orders.index', compact('orders'));
     }
 

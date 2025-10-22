@@ -48,7 +48,7 @@ use App\Http\Controllers\Admin\OrderAdminController;
 
 Route::middleware(['auth', 'checkadmin'])
     ->prefix('admin')
-    ->name('admin.') // 🟢 thêm dòng này để Laravel tự thêm tiền tố "admin." cho các route
+    ->name('admin.')
     ->group(function () {
         Route::get('/orders', [OrderAdminController::class, 'index'])->name('orders.index');
         Route::get('/orders/{id}', [OrderAdminController::class, 'show'])->name('orders.show');
